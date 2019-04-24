@@ -1,0 +1,90 @@
+
+---
+spring:
+  profiles:
+    active: local
+#  main:
+#    banner-mode: 'off'
+  jmx:
+    enabled: true
+  banner:
+    location: classpath:/banner.txt
+
+api:
+  domain: localhost
+
+
+---
+spring:
+  profiles: local
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-admin
+
+debug_mode: true
+
+books:
+  datasource:
+#    jdbc-url: jdbc:mysql://localhost:3306/books?useUnicode=true&characterEncoding=utf-8
+#    driver-class-name: com.mysql.jdbc.Driver
+    jdbc-url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;;INIT=runscript from 'classpath:/example-books.sql'
+    driverClassName: org.h2.Driver
+    username: root
+    password: 123456
+    maximum-pool-size: 1
+    properties:
+      hibernate:
+        show-sql: true
+#        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        ddl-auto: false
+#    jpa:
+#      database-platform: org.hibernate.dialect.MySQLDialect
+
+
+logs:
+  datasource:
+    #    jdbc-url: jdbc:mysql://localhost:3306/books?useUnicode=true&characterEncoding=utf-8
+    #    driver-class-name: com.mysql.jdbc.Driver
+    jdbc-url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;;INIT=runscript from 'classpath:/example-logs.sql'
+    driverClassName: org.h2.Driver
+    username: root
+    password: 123456
+    maximum-pool-size: 1
+    properties:
+      hibernate:
+        show-sql: true
+        #        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        ddl-auto: false
+
+---
+spring:
+  profiles: dev
+  # tomcat mode
+  jmx:
+    enabled: false
+
+debug_mode: true
+
+
+books:
+  datasource:
+    jndi-name: jdbc/my-jndi
+    properties:
+      hibernate:
+        show-sql: true
+        dialect: org.hibernate.dialect.MySQLInnoDBDialect
+        format_sql: false
+        ddl-auto: false
+
+---
+spring:
+  profiles: production
+
+
+debug_mode: false
