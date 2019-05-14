@@ -13,12 +13,13 @@ import lombok.NoArgsConstructor;
 //@ApiModel(value= "Response Format" ,description = "回傳固定結構")
 public class JsonModel {
   /**
-   * 結果資料集
+   * result set
    */
   //@ApiModelProperty(value="執行結果集",required = false)
   private Object result;
+
   /**
-   * 訊息, 可用 JsonMsg 正規
+   * JsonMsg message
    */
   //@ApiModelProperty(value="執行結果訊息",required = true)
   private JsonMsg msg;

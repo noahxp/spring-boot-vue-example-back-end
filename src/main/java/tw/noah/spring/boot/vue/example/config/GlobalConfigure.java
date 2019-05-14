@@ -6,8 +6,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.transaction.ChainedTransactionManager;
+import org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @Log4j2
@@ -24,4 +26,9 @@ public class GlobalConfigure {
     return new ChainedTransactionManager(booksTx,logsTx);  // put all tx-manager parameters
   }
 
+  // no-effect https://stackoverflow.com/questions/52120070/spring-data-web-pageable-one-indexed-parameters-true-does-not-work
+//  @Bean
+//  PageableHandlerMethodArgumentResolverCustomizer pageableResolverCustomizer() {
+//    return pageableResolver -> pageableResolver.setOneIndexedParameters(true);
+//  }
 }
