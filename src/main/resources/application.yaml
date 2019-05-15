@@ -41,7 +41,7 @@ books:
   datasource:
 #    jdbc-url: jdbc:mysql://localhost:3306/books?useUnicode=true&characterEncoding=utf-8
 #    driver-class-name: com.mysql.jdbc.Driver
-    jdbc-url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;;INIT=runscript from 'classpath:/example-books.sql'
+    jdbc-url: jdbc:h2:mem:test;INIT=runscript from 'classpath:/example-books.sql'
     driverClassName: org.h2.Driver
     username: root
     password: 123456
@@ -61,7 +61,7 @@ logs:
   datasource:
     #    jdbc-url: jdbc:mysql://localhost:3306/books?useUnicode=true&characterEncoding=utf-8
     #    driver-class-name: com.mysql.jdbc.Driver
-    jdbc-url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;;INIT=runscript from 'classpath:/example-logs.sql'
+    jdbc-url: jdbc:h2:mem:test;INIT=runscript from 'classpath:/example-logs.sql'
     driverClassName: org.h2.Driver
     username: root
     password: 123456

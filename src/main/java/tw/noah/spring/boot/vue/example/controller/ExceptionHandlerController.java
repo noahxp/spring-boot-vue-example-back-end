@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import tw.noah.spring.boot.vue.example.Exception.DataNotFoundException;
+import tw.noah.spring.boot.vue.example.exception.DataNotFoundException;
 import tw.noah.spring.boot.vue.example.model.JsonModel;
 import tw.noah.spring.boot.vue.example.model.JsonMsg;
 
 
 /**
  * global error handler
- * 
+ *
  */
 @RestController
 @Log4j2
@@ -81,9 +81,9 @@ public class ExceptionHandlerController {
       }
     }
 
-      
+
   }
-  
+
 
 
 
