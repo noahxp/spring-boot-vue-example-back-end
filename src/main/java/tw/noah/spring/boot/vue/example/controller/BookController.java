@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tw.noah.spring.boot.vue.example.entity.Book;
@@ -20,7 +22,7 @@ import tw.noah.spring.boot.vue.example.service.BookService;
 
 @RestController
 @Log4j2
-@RequestMapping("/apis/books/")
+@RequestMapping("/apis/books")
 public class BookController {
 
   @Autowired
@@ -38,9 +40,20 @@ public class BookController {
 
     return new JsonModel(bookService.findAllBooks(currentPage), JsonMsg.Success);
 
-//    Page<Book> books = bookService.findAllBooks(currentPage);
-//    return new JsonModel(books, JsonMsg.Success);
+  }
 
+  @PutMapping(value = "" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public JsonModel editoBook(@RequestBody Book book){
+    log.info("edit:" + book);
+
+    Assert.notNull(book,"book can't been null");
+    Assert.notNull(book.getBookId(),"book id can't been null");
+    Assert.notNull(book.getBookName(),"book name can't been null");
+    Assert.notNull(book.getIsdn(),"book isdn can't been null");
+
+    bookService.saveBook(book);
+
+    return new JsonModel(null, JsonMsg.Success);
   }
 
 }

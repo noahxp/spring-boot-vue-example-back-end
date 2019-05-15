@@ -9,5 +9,7 @@ public interface BookService {
   List<Book> findAllBooks();
 
   Page<Book> findAllBooks(int currentPage);
+
+  void saveBook(Book book);
 }
 
