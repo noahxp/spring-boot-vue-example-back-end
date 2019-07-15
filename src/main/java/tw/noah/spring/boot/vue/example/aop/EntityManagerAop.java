@@ -30,7 +30,6 @@ public class EntityManagerAop {
       log.debug("entityManagerBooks.clear() on AOP ");
       log.debug("entityManagerLogs.clear() on AOP ");
     }
-    log.info("...............");
 
     entityManagerBooks.clear();
     entityManagerLogs.clear();

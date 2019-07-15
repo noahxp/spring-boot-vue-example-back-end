@@ -21,10 +21,23 @@ spring:
 #    pageable:
 #      one-indexed-parameters: true
 
+  mail:
+    host: oms02.104-dev.com.tw
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+            required: flase
 
 api:
   domain: localhost
   page-size: 5
+
+
+
+
 
 ---
 spring:
