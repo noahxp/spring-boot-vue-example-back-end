@@ -21,12 +21,12 @@ public class SampleInteceptor implements HandlerInterceptor {
    */
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-    log.trace("HandlerInterceptor.preHandle:[" + request.getRequestURL()  + "][" +  request.getMethod() + "]");
+    log.info("HandlerInterceptor.preHandle:[" + request.getRequestURL()  + "][" +  request.getMethod() + "]");
     return true;
   }
 
   /**
-   * execture time : after response to frontend
+   * execture time : after response to frontend , 不能修改response body , 因為response body已被生成
    * @param request
    * @param response
    * @param handler caller
@@ -35,13 +35,13 @@ public class SampleInteceptor implements HandlerInterceptor {
    */
   @Override
   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-    log.trace("HandlerInterceptor.postHandle:[" + request.getRequestURL()  + "][" +  request.getMethod() + "]");
+    log.info("HandlerInterceptor.postHandle:[" + request.getRequestURL()  + "][" +  request.getMethod() + "]");
   }
 
 
   @Override
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-    log.trace("HandlerInterceptor.afterCompletion");
+    log.info("HandlerInterceptor.afterCompletion");
   }
 
 

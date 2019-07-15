@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -25,14 +26,15 @@ import tw.noah.spring.boot.vue.example.model.JsonMsg;
  */
 @RestController
 @Log4j2
+@Scope("prototype")
 public class ExceptionHandlerController {
-  // if environment eq "dev" or "staging" , get detail exception.
-  @Value("${debug_mode}")
-  private boolean debugMode;
-
 
   @RestControllerAdvice
   class GeneralErrorException {
+
+    // if environment eq "dev" or "staging" , get detail exception.
+    @Value("${debug.mode}")
+    boolean debug104Mode = false;
 
     /**
      * 使用一般錯誤物件的處理方式
@@ -74,7 +76,9 @@ public class ExceptionHandlerController {
 
 
     private JsonModel getJsonModel(Throwable th){
-      if (debugMode) {
+      log.info(debug104Mode);
+
+      if (debug104Mode) {
         return new JsonModel(ExceptionUtils.getStackTrace(th), JsonMsg.Error);
       } else {
         return new JsonModel("ERROR.", JsonMsg.Error);

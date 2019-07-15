@@ -10,6 +10,7 @@ spring:
   banner:
     location: classpath:/banner.txt
 
+
 #  data:
 #    web:
 #      pageable:
@@ -31,12 +32,13 @@ spring:
             enable: false
             required: flase
 
+
+debug:
+  mode: true
+
 api:
   domain: localhost
   page-size: 5
-
-
-
 
 
 ---
@@ -48,7 +50,8 @@ spring:
       enabled: true
       path: /h2-admin
 
-debug_mode: true
+debug:
+  mode: true
 
 books:
   datasource:
