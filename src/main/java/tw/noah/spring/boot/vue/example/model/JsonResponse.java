@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 //@ApiModel(value= "Response Format" ,description = "回傳固定結構")
-public class JsonModel {
+public class JsonResponse {
   /**
    * result set
    */
@@ -19,9 +19,14 @@ public class JsonModel {
   private Object result;
 
   /**
-   * JsonMsg message
+   * JsonStatus message
    */
   //@ApiModelProperty(value="執行結果訊息",required = true)
-  private JsonMsg msg;
+  private JsonStatus status;
+
+  /**
+   * debug message , or error stack.
+   */
+  private String message;
 
 }

@@ -5,8 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tw.noah.spring.boot.vue.example.model.JsonModel;
-import tw.noah.spring.boot.vue.example.model.JsonMsg;
+import tw.noah.spring.boot.vue.example.model.JsonResponse;
+import tw.noah.spring.boot.vue.example.model.JsonStatus;
 import tw.noah.spring.boot.vue.example.service.EmailExample;
 
 @RestController
@@ -17,11 +17,11 @@ public class EmailController {
   private EmailExample emailExample;
 
 
-  @GetMapping(value = "/html" ,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public JsonModel htmlMail(){
+  @GetMapping(value = "/html" )
+  public JsonResponse htmlMail(){
 
     emailExample.demoSpringMail();
 
-    return new JsonModel("ok", JsonMsg.Success);
+    return new JsonResponse("ok", JsonStatus.Success ,null);
   }
 }

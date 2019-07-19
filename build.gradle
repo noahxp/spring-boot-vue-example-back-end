@@ -3,7 +3,7 @@ plugins {
     id 'org.springframework.boot' version '2.1.4.RELEASE'
     id 'java'
     id 'war'
-    id 'com.google.cloud.tools.jib' version '1.3.0'
+    id 'com.google.cloud.tools.jib' version '1.4.0'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -11,7 +11,7 @@ apply plugin: 'io.spring.dependency-management'
 group = 'tw.noah'
 version = '1.0.0'
 sourceCompatibility = '1.8'
-jib.to.image = 'noahxp/springboot:1.0.0'
+//jib.to.image = 'noahxp/springboot:1.0.0'
 
 configurations {
     compileOnly {

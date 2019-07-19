@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import tw.noah.spring.boot.vue.example.exception.DataNotFoundException;
-import tw.noah.spring.boot.vue.example.model.JsonModel;
-import tw.noah.spring.boot.vue.example.model.JsonMsg;
+import tw.noah.spring.boot.vue.example.model.JsonResponse;
+import tw.noah.spring.boot.vue.example.model.JsonStatus;
 
 
 /**
@@ -42,10 +42,10 @@ public class ExceptionHandlerController {
      * @return
      */
     @ExceptionHandler(value = {ServletRequestBindingException.class, MethodArgumentTypeMismatchException.class,IllegalArgumentException.class, IllegalStateException.class, HttpMessageNotReadableException.class })
-    public final ResponseEntity<JsonModel> handleBadRequest(Exception ex) {
+    public final ResponseEntity<JsonResponse> handleBadRequest(Exception ex) {
       log.error(ex,ex);
-      JsonModel jsonModel = getJsonModel(ex);
-      return new ResponseEntity<>(jsonModel, HttpStatus.BAD_REQUEST);
+      JsonResponse jsonResponse = getJsonModel(ex);
+      return new ResponseEntity<>(jsonResponse ,HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -54,10 +54,10 @@ public class ExceptionHandlerController {
      * @return
      */
     @ExceptionHandler(value = {Exception.class})
-    public final ResponseEntity<JsonModel> handleInternalServerError(Exception ex) {
+    public final ResponseEntity<JsonResponse> handleInternalServerError(Exception ex) {
       log.error(ex,ex);
-      JsonModel jsonModel = getJsonModel(ex);
-      return new ResponseEntity<>(jsonModel, HttpStatus.INTERNAL_SERVER_ERROR);
+      JsonResponse jsonResponse = getJsonModel(ex);
+      return new ResponseEntity<>(jsonResponse ,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
@@ -67,28 +67,24 @@ public class ExceptionHandlerController {
      * @return
      */
     @ExceptionHandler(value = {DataNotFoundException.class})
-    public final ResponseEntity<JsonModel> handleDataNotFoundException(DataNotFoundException ex) {
+    public final ResponseEntity<JsonResponse> handleDataNotFoundException(DataNotFoundException ex) {
       log.warn(ex, ex);
       ResponseStatus responseStatus = DataNotFoundException.class.getAnnotation(ResponseStatus.class);
       HttpStatus httpStatus = responseStatus.value();
-      return new ResponseEntity<>(new JsonModel(ex.getMessage(), JsonMsg.Failure), httpStatus);
+      return new ResponseEntity<>(new JsonResponse(ex.getMessage(), JsonStatus.Failure,null) ,httpStatus);
     }
 
 
-    private JsonModel getJsonModel(Throwable th){
-      log.info(debug104Mode);
-
+    private JsonResponse getJsonModel(Throwable th){
       if (debug104Mode) {
-        return new JsonModel(ExceptionUtils.getStackTrace(th), JsonMsg.Error);
+        return new JsonResponse(null, JsonStatus.Error, ExceptionUtils.getStackTrace(th));
       } else {
-        return new JsonModel("ERROR.", JsonMsg.Error);
+        return new JsonResponse(null, JsonStatus.Error, JsonStatus.Error.getDesc());
       }
     }
 
 
   }
-
-
 
 
   // default - 404 not found.
@@ -97,8 +93,8 @@ public class ExceptionHandlerController {
     private static final String PATH = "/error";
 
     @RequestMapping(value = PATH)
-    public JsonModel error() {
-      return new JsonModel("Api 404 Not Found!",JsonMsg.Error);
+    public JsonResponse error() {
+      return new JsonResponse("Api 404 Not Found!", JsonStatus.Error ,JsonStatus.Error.getDesc());
     }
 
     @Override
