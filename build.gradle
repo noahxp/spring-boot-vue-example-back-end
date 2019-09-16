@@ -1,9 +1,8 @@
-
 plugins {
     id 'org.springframework.boot' version '2.1.4.RELEASE'
     id 'java'
     id 'war'
-    id 'com.google.cloud.tools.jib' version '1.4.0'
+    id 'com.google.cloud.tools.jib' version '1.6.0'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -11,7 +10,6 @@ apply plugin: 'io.spring.dependency-management'
 group = 'tw.noah'
 version = '1.0.0'
 sourceCompatibility = '1.8'
-//jib.to.image = 'noahxp/springboot:1.0.0'
 
 configurations {
     compileOnly {
@@ -34,7 +32,6 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3'
 
 
-
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
     runtime 'mysql:mysql-connector-java'
@@ -53,4 +50,30 @@ dependencies {
 
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+ext.gitHash = {
+    def p3 = 'git describe --always HEAD'.execute()
+    p3.waitFor()
+    return p3.text.trim()
+}
+ext.today = {
+    return new Date().format('yyyyMMdd')
+}
+
+// jib configure docs: https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin#extended-usage
+jib {
+    from.image = 'tomcat:8.5-jre8-alpine'
+
+    to {
+        image = "noahxp/sprint-boot-demo:latest"
+        tags = [today() + "-" + gitHash(), project.version]
+    }
+
+    container {
+        jvmFlags = ['-XX:-HeapDumpOnOutOfMemoryError', '-Djava.security.egd=file:/dev/./urandom', '-Dserver.port=8080', '-Duser.timezone=Asia/Taipei']
+        ports = ['8080']
+        useCurrentTimestamp = true
+        appRoot = '/usr/local/tomcat/webapps/ROOT'
+    }
 }

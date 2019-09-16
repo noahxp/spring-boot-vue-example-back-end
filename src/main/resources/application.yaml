@@ -10,20 +10,12 @@ spring:
   banner:
     location: classpath:/banner.txt
 
-
-#  data:
-#    web:
-#      pageable:
-#        one-indexed-parameters: true
-#    rest:
-#      one-indexed-parameters: true
-#      pageable:
-#        one-indexed-parameters: true
-#    pageable:
-#      one-indexed-parameters: true
+  jackson:
+    serialization:
+      INDENT_OUTPUT: false
 
   mail:
-    host: oms02.104-dev.com.tw
+    host: mail.noah.tw
     properties:
       mail:
         smtp:
@@ -45,10 +37,15 @@ api:
 spring:
   profiles: local
 
+  jackson:
+    serialization:
+      INDENT_OUTPUT: false
+
   h2:
     console:
       enabled: true
       path: /h2-admin
+
 
 debug:
   mode: true
@@ -96,6 +93,10 @@ spring:
   # tomcat mode
   jmx:
     enabled: false
+
+  jackson:
+    serialization:
+      INDENT_OUTPUT: false
 
 debug_mode: true
 
