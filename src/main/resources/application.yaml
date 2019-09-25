@@ -15,7 +15,7 @@ spring:
       INDENT_OUTPUT: false
 
   mail:
-    host: mail.noah.tw
+    host: oms02.104-dev.com.tw
     properties:
       mail:
         smtp:
@@ -23,6 +23,10 @@ spring:
           starttls:
             enable: false
             required: flase
+
+  cache:
+    jcache:
+      config: 'classpath:ehcache3.xml'
 
 
 debug:

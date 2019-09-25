@@ -2,6 +2,7 @@ package tw.noah.spring.boot.vue.example.config;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.transaction.ChainedTransactionManager;
@@ -10,6 +11,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @Log4j2
+@EnableCaching
 //@EntityScan("tw.noah.spring.boot.vue.example.entity")  // for embedded single jpa
 public class GlobalConfigure {
 
@@ -28,4 +30,5 @@ public class GlobalConfigure {
 //  PageableHandlerMethodArgumentResolverCustomizer pageableResolverCustomizer() {
 //    return pageableResolver -> pageableResolver.setOneIndexedParameters(true);
 //  }
+
 }
