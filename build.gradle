@@ -91,9 +91,10 @@ jib {
     }
 
     container {
-        jvmFlags = ['-XX:-HeapDumpOnOutOfMemoryError', '-Djava.security.egd=file:/dev/./urandom', '-Dserver.port=8080', '-Duser.timezone=Asia/Taipei']
+        jvmFlags = ['-Xmx1024','-Xms768','XX:+PrintGCDetails','-XX:-HeapDumpOnOutOfMemoryError', '-Djava.security.egd=file:/dev/./urandom', '-Dserver.port=8080', '-Duser.timezone=Asia/Taipei']
         ports = ['8080']
         useCurrentTimestamp = true
         appRoot = '/usr/local/tomcat/webapps/ROOT'
+        //        environment = ['AWS_CONTAINER_CREDENTIALS_RELATIVE_URI':'$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI']
     }
 }
