@@ -39,6 +39,9 @@ dependencies {
 
     // spring cloud
     implementation 'org.springframework.cloud:spring-cloud-aws-autoconfigure'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws-messaging'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config'
+
 
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 

@@ -15,7 +15,7 @@ spring:
       INDENT_OUTPUT: false
 
   mail:
-    host: oms02.104-dev.com.tw
+    host: localhost
     properties:
       mail:
         smtp:
@@ -56,6 +56,13 @@ cloud:
       static: ap-northeast-1
     stack:
       auto: false
+
+#aws:
+#  paramstore:
+#    prefix: /config
+#noah:
+#  e1: ${my_db_datasource_json}
+#  e2: "#{ new com.fasterxml.jackson.databind.ObjectMapper().readTree( '${my_db_datasource_json}' ).get('username').asText() }"
 
 ---
 spring:
