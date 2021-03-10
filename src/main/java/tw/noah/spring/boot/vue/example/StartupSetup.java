@@ -15,5 +15,6 @@ public class StartupSetup implements ApplicationListener<ContextRefreshedEvent> 
     log.info("Setup the dns cache ttl : 60 seconds" );
     java.security.Security.setProperty("networkaddress.cache.ttl", "60");
 
+    System.setProperty("mail.mime.splitlongparameters", "false");
   }
 }

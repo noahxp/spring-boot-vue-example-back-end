@@ -2,3 +2,10 @@ spring:
   application:
     name: my-product-name
 #      my-product-name is the aws parameters store second name /config/my-product-name
+
+
+aws:
+  paramstore:
+    prefix: /spring_cloud
+    # only for local, replace in .travis.yml
+    enabled: false

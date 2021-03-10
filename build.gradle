@@ -1,8 +1,8 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.4.RELEASE'
+    id 'org.springframework.boot' version '2.3.9.RELEASE'
     id 'java'
     id 'war'
-    id 'com.google.cloud.tools.jib' version '1.6.0'
+    id 'com.google.cloud.tools.jib' version '2.8.0'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -84,21 +84,32 @@ ext.today = {
     return new Date().format('yyyyMMdd')
 }
 
+def Task preJibBuild = task(preJibBuild)
+preJibBuild.doLast {
+    exec {
+        workingDir '.'
+        commandLine 'sh', '-c', 'docker build -t="tomcat-alpine-clean:latest" .'
+    }
+}
+
 // jib configure docs: https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin#extended-usage
 jib {
-    from.image = 'tomcat:8.5-jre8-alpine'
+//	from.image = 'tomcat:9-jre8-alpine' // docker image source write in Dockerfile
+    from.image = 'docker://tomcat-alpine-clean:latest'
 
     to {
-        image = "noahxp/sprint-boot-demo:latest"
-        tags = [today() + "-" + gitHash(), project.version]
+        image = "billing.cloud/billing:latest"
+        tags = [today() + "-" + gitHash()]
     }
-
     container {
-        jvmFlags = ['-Xmx1024','-Xms768','XX:+PrintGCDetails','-XX:-HeapDumpOnOutOfMemoryError', '-Djava.security.egd=file:/dev/./urandom']
+        jvmFlags = ['-XX:-HeapDumpOnOutOfMemoryError', '-Djava.security.egd=file:/dev/./urandom', '-Dserver.port=8080' ,'-Duser.timezone=Asia/Taipei']
         ports = ['8080']
-        useCurrentTimestamp = true
         appRoot = '/usr/local/tomcat/webapps/ROOT'
-        //        environment = ['AWS_CONTAINER_CREDENTIALS_RELATIVE_URI':'$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI']
-        environment = ['LANG':'zh_TW.UTF-8' , 'TZ':'Asia/Taipei']
+        creationTime = 'USE_CURRENT_TIMESTAMP'
     }
+}
+
+tasks.named('wrapper') {
+    distributionType = Wrapper.DistributionType.BIN
+    gradleVersion = '6.8.2'
 }

@@ -15,19 +15,26 @@ spring:
       INDENT_OUTPUT: false
 
   mail:
-    host: localhost
+    default-encoding: UTF-8
+    host: oms02.104-dev.com.tw
     properties:
       mail:
         smtp:
           auth: false
           starttls:
             enable: false
-            required: flase
+            required: false
+
 
   cache:
     jcache:
       config: 'classpath:ehcache3.xml'
 
+#mail:
+#  mime:
+#    # for support long file name
+#    encodeparameters: false
+#    splitlongparameters: false
 
 debug:
   mode: true
